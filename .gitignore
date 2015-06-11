@@ -1,0 +1,13 @@
+.idea
+
+resume.tex
+resume.md
+
+*.tuc
+*.log
+*.pdf
+*.html
+*.swo
+*.swp
+*.docx
+*.rtf
