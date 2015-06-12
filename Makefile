@@ -24,6 +24,9 @@ rtf: resume.rtf
 resume.rtf: resume.md
 	pandoc -s -S resume.md -o resume.rtf
 
+resume.md:
+	build.bash
+
 clean:
 	rm resume.html
 	rm resume.tex
