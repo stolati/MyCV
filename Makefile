@@ -2,36 +2,39 @@
 
 all: html pdf docx rtf
 
-pdf: resume.pdf
-resume.pdf: resume.md
+pdf: target/resume.pdf
+target/resume.pdf: target/resume.md
 	pandoc --standalone --template style_chmduquesne.tex \
 	--from markdown --to context \
 	-V papersize=A4 \
-	-o resume.tex resume.md; \
-	context resume.tex
+	-o target/resume.tex target/resume.md; \
+	context target/resume.tex
+	mv resume.pdf resume.tuc resume.log target/
 
-html: resume.html
-resume.html: style_chmduquesne.css resume.md
+html: target/resume.html
+target/resume.html: style_chmduquesne.css target/resume.md
 	pandoc --standalone -H style_chmduquesne.css \
         --from markdown --to html \
-        -o resume.html resume.md
+        -o target/resume.html target/resume.md
 
-docx: resume.docx
-resume.docx: resume.md
-	pandoc -s -S resume.md -o resume.docx
+docx: target/resume.docx
+target/resume.docx: target/resume.md
+	pandoc -s -S target/resume.md -o target/resume.docx
 
-rtf: resume.rtf
-resume.rtf: resume.md
-	pandoc -s -S resume.md -o resume.rtf
+rtf: target/resume.rtf
+target/resume.rtf: target/resume.md
+	pandoc -s -S target/resume.md -o target/resume.rtf
 
-resume.md:
-	build.bash
+target/resume.md:
+	build_resume.bash
 
 clean:
-	rm resume.html
-	rm resume.tex
-	rm resume.tuc
-	rm resume.log
-	rm resume.pdf
-	rm resume.docx
-	rm resume.rtf
+	rm -f target/resume.html
+	rm -f target/resume.tex
+	rm -f target/resume.tuc
+	rm -f target/resume.log
+	rm -f target/resume.pdf
+	rm -f target/resume.docx
+	rm -f target/resume.rtf
+	rm -f target/resume.md
+	rmdir --ignore-fail-on-non-empty target
